@@ -6,7 +6,7 @@
 #    By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 14:25:47 by cwannhed          #+#    #+#              #
-#    Updated: 2025/03/19 14:32:37 by cwannhed         ###   ########.fr        #
+#    Updated: 2025/03/19 16:53:38 by cwannhed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ INC_DIR = .
 OBJ_DIR = objs
 
 
-SRCS = main.c
+SRCS =	main.c		\
+		mlx_utils.c
 
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
