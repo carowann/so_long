@@ -6,7 +6,7 @@
 #    By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/15 15:51:55 by cwannhed          #+#    #+#              #
-#    Updated: 2025/03/12 16:21:21 by cwannhed         ###   ########.fr        #
+#    Updated: 2025/03/20 17:09:36 by cwannhed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,10 @@ SRCS = \
 	   ft_lstmap_bonus.c		\
 	   ft_printf.c				\
 	   ft_isspace.c				\
-	   ft_atof.c
+	   ft_atof.c				\
+	   ft_strndup.c				\
+	   get_next_line.c			\
+	   get_next_line_bonus.c
 	   
 GREEN=\033[0;32m
 RESET=\033[0m

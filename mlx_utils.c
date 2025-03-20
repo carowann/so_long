@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:44:23 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/19 18:02:20 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:40:20 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ int	render_window(t_var *vars)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		mlx_destroy_display(vars->mlx);
-		free(vars->win);
+		free(vars->mlx);
 		exit(EXIT_FAILURE);
 	}
 	vars->img.pixels_ptr = mlx_get_data_addr(vars->img.img, &vars->img.bpp, &vars->img.line_len, &vars->img.endian);
 	my_mlx_pixel_put(&vars->img, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	mlx_hook(vars->win, DestroyNotify, SubstructureNotifyMask, close_win, &vars);
-	mlx_key_hook(vars->win, handle_key_input, &vars);
+	mlx_hook(vars->win, DestroyNotify, SubstructureNotifyMask, close_win, vars);
+	mlx_key_hook(vars->win, handle_key_input, vars);
 	mlx_loop(vars->mlx);
 	return (0);
 }

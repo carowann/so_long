@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 14:26:54 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/20 19:11:39 by cwannhed         ###   ########.fr       */
+/*   Created: 2025/03/20 16:58:45 by cwannhed          #+#    #+#             */
+/*   Updated: 2025/03/20 16:59:26 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strndup(const char *s, size_t n)
 {
-	t_var	vars;
+	char	*str;
+	size_t	i;
 
-	check_input(argc, argv);
-	read_map(argv[1]);
-	render_window(&vars);
-	return (0);
+	if (!s)
+		return (NULL);
+	str = (char *)ft_calloc(n + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s[i] && i < n)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	return (str);
 }

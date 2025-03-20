@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 14:26:54 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/20 19:11:39 by cwannhed         ###   ########.fr       */
+/*   Created: 2025/03/20 15:33:30 by cwannhed          #+#    #+#             */
+/*   Updated: 2025/03/20 19:21:02 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int argc, char **argv)
+void	read_map(const char *path)
 {
-	t_var	vars;
+	int		fd;
+	t_list	*line;
+	t_list	temp; 
 
-	check_input(argc, argv);
-	read_map(argv[1]);
-	render_window(&vars);
-	return (0);
+	fd = open(path, O_RDONLY);
+	line = ft_lstnew(get_next_line(fd));
+	while (line)
+	{
+		
+		line = ft_lstnew(get_next_line(fd));
+	}
+	if (close(fd))
+	{
+		ft_putstr_fd("Error\n", 2);
+		perror("Error while closing fd in is_directory");
+		exit(EXIT_FAILURE);
+	}
 }

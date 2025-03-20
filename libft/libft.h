@@ -6,12 +6,16 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:24:01 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/12 16:20:56 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:01:23 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 /* ************************************************************************** */
 /*                                                                            */
@@ -25,9 +29,10 @@
 # include <unistd.h>
 # include <stdint.h>
 # include <stdarg.h>
+# include <fcntl.h>
 
 /* ========================= */
-/*        STRUCTURE          */
+/*        STRUCTURES         */
 /* ========================= */
 
 typedef struct s_list
@@ -63,7 +68,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
 /* ========================= */
-/*      STRING UTILS        */
+/*       STRING UTILS        */
 /* ========================= */
 
 size_t	ft_strlen(char const *s);
@@ -74,9 +79,10 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strdup(const char *s);
+char	*ft_strndup(const char *s, size_t n);
 
 /* ========================= */
-/*   CONVERSION FUNCTIONS   */
+/*    CONVERSION FUNCTIONS   */
 /* ========================= */
 
 int			ft_atoi(const char *nptr);
@@ -84,7 +90,7 @@ char		*ft_itoa(int n);
 long double	ft_atof(const char *str);
 
 /* ========================= */
-/*  STRING MANIPULATION     */
+/*   STRING MANIPULATION     */
 /* ========================= */
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -120,5 +126,11 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+/* ========================= */
+/*      GET NEXT LINE        */
+/* ========================= */
+
+char	*get_next_line(int fd);
 
 #endif /* LIBFT_H */

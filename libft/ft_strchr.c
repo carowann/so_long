@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 18:13:49 by cwannhed          #+#    #+#             */
-/*   Updated: 2024/11/20 18:14:02 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:00:24 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	unsigned char	chr;
 
+	if (!s)
+		return (NULL);
 	chr = (unsigned char)c;
 	while (*s)
 	{

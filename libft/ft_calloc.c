@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:24:12 by cwannhed          #+#    #+#             */
-/*   Updated: 2024/11/25 16:24:17 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:57:42 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*array;
+    void    *array;
+    size_t  total_size;
 
-	if (nmemb * size > INT_MAX)
-		return (NULL);
-	array = malloc(nmemb * size);
+    if (nmemb == 0 || size == 0)
+        return (malloc(1));
+    if (nmemb > SIZE_MAX / size)
+        return (NULL);
+    total_size = nmemb * size;
+    array = malloc(total_size);
 	if (!array)
 		return (NULL);
 	ft_bzero(array, nmemb * size);
