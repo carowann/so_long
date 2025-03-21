@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:48:39 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/20 18:53:11 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:49:22 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ int	check_path(char *path)
 	if (fd >= 0)
 	{
 		if (close(fd) < 0)
-		{
-			ft_putstr_fd("Error\n", 2);
-			perror("Error while closing fd in is_directory");
 			exit(EXIT_FAILURE);
-		}
 		return (0);
 	}
 	return (1);

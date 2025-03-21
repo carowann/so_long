@@ -6,7 +6,7 @@
 #    By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/15 15:51:55 by cwannhed          #+#    #+#              #
-#    Updated: 2025/03/20 17:09:36 by cwannhed         ###   ########.fr        #
+#    Updated: 2025/03/21 14:17:49 by cwannhed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,4 +105,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

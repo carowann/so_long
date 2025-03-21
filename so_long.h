@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:27:09 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/20 19:12:46 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:48:25 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		check_path(char *path);
 int		print_usage();
 
 //parsing
-void	read_map(const char *path);
-
+t_list	*read_map(const char *path);
 
 #endif
