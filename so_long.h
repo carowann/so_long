@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:27:09 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/21 14:48:25 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:48:56 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,23 @@ int		handle_key_input(int keysym, t_var	*data);
 int		close_win(t_var *data);
 int		render_window(t_var *vars);
 
-//utils
+//args_parser
 void	check_input(int argc, char **argv);
 int		check_ber(char *arg);
 int		check_path(char *path);
 int		print_usage();
 
-//parsing
+//map_parser
 t_list	*read_map(const char *path);
+
+//map validation
+int	validate_map_lines(t_list *map_lines);
+int	check_width(t_list *map_lines);
+int	check_chars(t_list	*map_lines);
+int	check_walls(t_list	*map_lines);
+int	count_tokens(t_list	*map_lines);
+
+//error_handler
+int	map_error();
 
 #endif

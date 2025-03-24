@@ -1,76 +1,93 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/20 15:33:30 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/21 18:24:31 by cwannhed         ###   ########.fr       */
+/*   Created: 2025/03/24 16:58:08 by cwannhed          #+#    #+#             */
+/*   Updated: 2025/03/24 18:28:48 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_list	*read_map(const char *path)
+static int	check_walls(char *line, int mid_row)
 {
-	int		fd;
-	char	*line;
-	t_list	*new_node;
-	t_list	*head; 
-
-	head = NULL;
-	fd = open(path, O_RDONLY);
-	//check fd
-	line = get_next_line(fd);
-	while (line)
+	int	i;
+	int	last_idx;
+	
+	i = 0;
+	if (mid_row)
 	{
-		new_node = ft_lstnew(line);
-		if (!new_node)
+		last_idx = ft_strlen(line) - 1;
+		if (line[0] != '1' || line[last_idx] != '1')
+			return (0);
+	}
+	else
+	{
+		while (line[i])
 		{
-			ft_lstclear(&head, free);
-			close(fd);
-			return (NULL);
+			if (line[i] != '1')
+				return (0);
+			i++;
 		}
-		ft_lstadd_back(&head, new_node);
-		line = get_next_line(fd);
 	}
-	if (close(fd) < 0)
-	{
-		ft_lstclear(&head, free);
-		return (NULL);
-	}
-	return (head);
+	return (1);
 }
 
 int	validate_map_lines(t_list *map_lines)
 {
-	t_list	*head;
+	t_list	*curr;
+	char	*line;
 	int		width;
-	int		errors;
-	
-	errors = 0;
-	head = map_lines;
-	width = check_width(&head);
-	if (!width)
+
+	width = ft_strlen(map_lines->content);
+	curr = map_lines->next;
+	if (!check_walls(line, 0))
+		//wall error
+	while (curr->next)
 	{
-		//TODO: print error mess
-		errors++;
+		line = (char *)curr->content;
+		if (ft_strlen(line) != width)
+			//not rectangular
+		if (!check_walls(line, 1))
+			//invalid walls
+		curr = curr->next;
 	}
-	if (!check_chars(&head))
-		errors++;
-	if (!check_walls(&head))
-		errors++;
-	if (!count_tokens(&head))
-		errors++;
-	ft_lstclear(&head, free);
-	if (errors)
-	{
-		//TODO: error messages
-		return (0);
-	}
-	return (1);
+	line = (char *)curr->content;
+	if (!check_walls(line, 0));
+		//wall error
 }
+
+// int	validate_map_lines(t_list *map_lines)
+// {
+// 	t_list	*head;
+// 	int		width;
+// 	int		errors;
+	
+// 	errors = 0;
+// 	head = map_lines;
+// 	width = check_width(&head);
+// 	if (!width)
+// 	{
+// 		//TODO: print error mess
+// 		errors++;
+// 	}
+// 	if (!check_chars(&head))
+// 		errors++;
+// 	if (!check_walls(&head))
+// 		errors++;
+// 	if (!count_tokens(&head))
+// 		errors++;
+// 	ft_lstclear(&head, free);
+// 	if (errors)
+// 	{
+// 		//TODO: error messages
+// 		return (0);
+// 	}
+// 	return (1);
+// }
 
 int	check_width(t_list *map_lines)
 {
@@ -137,9 +154,9 @@ int	check_walls(t_list	*map_lines)
 		map_lines = map_lines->next;
 	}
 	line = (char *)map_lines->content;
+	i = 0;
 	while (line[i])
 	{
-		i = 0;
 		if (line[i] != '1')
 			return (0);
 		i++;

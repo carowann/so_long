@@ -6,7 +6,7 @@
 #    By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 14:25:47 by cwannhed          #+#    #+#              #
-#    Updated: 2025/03/20 15:24:34 by cwannhed         ###   ########.fr        #
+#    Updated: 2025/03/24 17:49:12 by cwannhed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ OBJ_DIR = objs
 
 SRCS =	main.c		\
 		mlx_utils.c \
-		utils.c
+		args_parser.c	\
+		map_parser.c	\
+		map_validation.c
 
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
