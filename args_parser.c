@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_parser.c                                       :+:      :+:    :+:   */
+/*   args_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:48:39 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/24 17:39:33 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:55:48 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	check_input(int argc, char **argv)
 {
 	if (argc !=2 || !check_ber(argv[1]) || !check_path(argv[1]))
 	{
+		ft_putstr_fd("Error\n", 2);
 		print_usage();
 		exit(EXIT_FAILURE);
 	}
@@ -52,9 +53,8 @@ int	check_path(char *path)
 	return (1);
 }
 
-int	print_usage()
+void	print_usage()
 {
-	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd("Usage: ./so_long <maps/map_file.ber>\n", 2);
 	ft_putstr_fd("\n", 2);
 	ft_putstr_fd("  <maps/map_file.ber> : A game map file with a .ber extension.\n", 2);

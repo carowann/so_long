@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:27:09 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/24 17:48:56 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:55:13 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
+
+#define ERR_RECT    0x01
+#define ERR_WALLS   0x02
+#define ERR_INVALID 0x04
+#define ERR_TOKEN   0x08
 
 # define WIDTH	400
 # define HEIGHT 400
@@ -39,6 +44,14 @@ typedef	struct	s_var
 	t_img	img;
 }				t_var;
 
+typedef	struct	s_token
+{
+	int	e_counter;
+	int	p_counter;
+	int	c_counter;
+}				t_token;
+
+
 //mlx utils
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		handle_key_input(int keysym, t_var	*data);
@@ -49,19 +62,16 @@ int		render_window(t_var *vars);
 void	check_input(int argc, char **argv);
 int		check_ber(char *arg);
 int		check_path(char *path);
-int		print_usage();
+void	print_usage();
 
 //map_parser
 t_list	*read_map(const char *path);
 
 //map validation
 int	validate_map_lines(t_list *map_lines);
-int	check_width(t_list *map_lines);
-int	check_chars(t_list	*map_lines);
-int	check_walls(t_list	*map_lines);
-int	count_tokens(t_list	*map_lines);
 
 //error_handler
-int	map_error();
+int		map_error();
+void	print_validation_errors(int err);
 
 #endif
