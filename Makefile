@@ -6,7 +6,7 @@
 #    By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 14:25:47 by cwannhed          #+#    #+#              #
-#    Updated: 2025/03/28 14:10:26 by cwannhed         ###   ########.fr        #
+#    Updated: 2025/03/31 14:54:15 by cwannhed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,14 @@ INC_DIR = .
 OBJ_DIR = objs
 
 
-SRCS =	main.c			\
-		mlx_utils.c 	\
-		args_parser.c	\
-		map_parser.c	\
-		map_validation.c\
+SRCS =	main.c				\
+		mlx_utils.c 		\
+		args_parser.c		\
+		map_parser.c		\
+		map_validation.c	\
+		map_checker.c		\
+		map_utils.c			\
+		map_walls_checker.c	\
 		error_handler.c
 
 
