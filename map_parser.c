@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:33:30 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/31 17:19:49 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/01 17:51:42 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,15 @@ static	t_list *handle_error(t_list **head, int fd, char *error_msg)
 t_list	*read_map(const char *path)
 {
 	int		fd;
-	int		width;
 	char	*line;
 	t_list	*head; 
 
 	head = NULL;
 	fd = open(path, O_RDONLY);
-	width = 0;
 	if (fd < 0)
 		return (handle_error(&head, fd, "Unable to open file"));
-	line = get_next_line(fd);
-	if (!line)
-		return (handle_error(&head, fd, "Empty map file"));
-	width = ft_strlen(line);
-	if (width == 0)
-		return (free(line), handle_error(&head, fd, "Map file contains an empty line"));
-	if (!add_line(line, &head))
-		return (handle_error(&head, fd, "Memory allocation failed in add_line"));
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		if (line_len(line) != width || line_len(line) == 0)
 		if (!add_line(line, &head))
 			return (handle_error(&head, fd, "Memory allocation failed in add_line"));
 	}

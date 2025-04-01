@@ -6,7 +6,7 @@
 #    By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 14:25:47 by cwannhed          #+#    #+#              #
-#    Updated: 2025/03/31 14:54:15 by cwannhed         ###   ########.fr        #
+#    Updated: 2025/04/01 15:50:08 by cwannhed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS =	main.c				\
 		map_checker.c		\
 		map_utils.c			\
 		map_walls_checker.c	\
+		map_to_matrix.c 	\
 		error_handler.c
 
 

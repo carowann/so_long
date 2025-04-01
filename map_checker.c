@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:46:56 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/31 15:57:52 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:00:07 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,15 @@ static void	update_token_cunts(t_token *token, char *line)
 	}
 }
 
-int	check_line_errors(t_list *curr, t_list *head, size_t width, t_token *token)
+int	check_line_errors(char	*row, t_map *map,t_token *token)
 {
 	int		err;
-	char	*line;
 
 	err = 0;
-	line = (char *)curr->content;
-	if (line_len(line) != width)
+	if (row_len(row) != map->cols)
 		err |= ERR_RECT;
-	if (!has_valid_walls(line, (curr != head && curr->next != NULL)))
-		err |= ERR_WALLS;
-	if (!has_only_valid_chars(line))
+	if (!has_only_valid_chars(row))
 		err |= ERR_INVALID;
-	update_token_cunts(token, line);
+	update_token_cunts(token, row);
 	return (err);
 }
