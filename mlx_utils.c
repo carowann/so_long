@@ -6,18 +6,17 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:44:23 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/03/20 14:40:20 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:04:06 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
-	
-	dst = img->pixels_ptr + (y * img->line_len + x * (img->bpp / 8));
+
+	dst = img->pxls_ptr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -37,31 +36,31 @@ int	close_win(t_var *data)
 	exit(EXIT_SUCCESS);
 }
 
-int	render_window(t_var *vars)
+int	render_window(t_var *v)
 {
-	vars->mlx = mlx_init();
-	if (!vars->mlx)
+	v->mlx = mlx_init();
+	if (!v->mlx)
 		exit(EXIT_FAILURE);
-	vars->win = mlx_new_window(vars->mlx, WIDTH, HEIGHT, "so_long");
-	if (!vars->win)
+	v->win = mlx_new_window(v->mlx, WIDTH, HEIGHT, "so_long");
+	if (!v->win)
 	{
-		mlx_destroy_display(vars->mlx);
-		free(vars->mlx);
+		mlx_destroy_display(v->mlx);
+		free(v->mlx);
 		exit(EXIT_FAILURE);
 	}
-	vars->img.img = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
-	if (!vars->img.img)
+	v->img.img = mlx_new_image(v->mlx, WIDTH, HEIGHT);
+	if (!v->img.img)
 	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		mlx_destroy_display(vars->mlx);
-		free(vars->mlx);
+		mlx_destroy_window(v->mlx, v->win);
+		mlx_destroy_display(v->mlx);
+		free(v->mlx);
 		exit(EXIT_FAILURE);
 	}
-	vars->img.pixels_ptr = mlx_get_data_addr(vars->img.img, &vars->img.bpp, &vars->img.line_len, &vars->img.endian);
-	my_mlx_pixel_put(&vars->img, 5, 5, 0x00FF0000);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	mlx_hook(vars->win, DestroyNotify, SubstructureNotifyMask, close_win, vars);
-	mlx_key_hook(vars->win, handle_key_input, vars);
-	mlx_loop(vars->mlx);
+	v->img.pxls_ptr = mlx_get_data_addr(v->img.img, &v->img.bpp, &v->img.line_len, &v->img.endian);
+	my_mlx_pixel_put(&v->img, 5, 5, 0x00FF0000);
+	mlx_put_image_to_window(v->mlx, v->win, v->img.img, 0, 0);
+	mlx_hook(v->win, DestroyNotify, SubstructureNotifyMask, close_win, v);
+	mlx_key_hook(v->win, handle_key_input, v);
+	mlx_loop(v->mlx);
 	return (0);
 }

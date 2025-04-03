@@ -6,51 +6,57 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:33:30 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/01 17:51:42 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:58:28 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static	int	add_line(char *line, t_list **head)
+static	int	add_line(char *line, t_map *map)
 {
 	t_list	*new_node;
-	
+
 	new_node = ft_lstnew(line);
 	if (!new_node)
 		return (0);
-	ft_lstadd_back(head, new_node);
+	ft_lstadd_back(&map->lines, new_node);
 	return (1);
 }
 
-static	t_list *handle_error(t_list **head, int fd, char *error_msg)
+static void	handle_error(t_map *map, int fd, char *error_msg)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (fd >= 0 && close(fd) < 0)
 		ft_putstr_fd("Warning: Failed to close file descriptor properly.\n", 2);
-	if (head && *head)
-		ft_lstclear(head, free);
+	if (map->lines)
+		ft_lstclear(&map->lines, free);
 	ft_putstr_fd(error_msg, 2);
-	return (NULL);
+	return ;
 }
 
-t_list	*read_map(const char *path)
+void	read_map(const char *path, t_map *map)
 {
 	int		fd;
 	char	*line;
-	t_list	*head; 
 
-	head = NULL;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (handle_error(&head, fd, "Unable to open file"));
-	while ((line = get_next_line(fd)) != NULL)
 	{
-		if (!add_line(line, &head))
-			return (handle_error(&head, fd, "Memory allocation failed in add_line"));
+		handle_error(map, fd, "Unable to open file");
+		return ;
+	}
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (!add_line(line, map))
+		{
+			handle_error(map, fd, "Memory allocation failed in add_line");
+			break ;
+		}
 	}
 	if (close(fd) < 0)
-		return (handle_error(&head, -1, "Failed to close the file descriptor"));
-	return (head);
+		handle_error(map, -1, "Failed to close the file descriptor");
+	return ;
 }
-

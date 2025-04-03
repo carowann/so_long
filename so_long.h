@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:27:09 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/01 19:01:25 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:31:01 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define SO_LONG_H
 
 # include "libft/libft.h"
+# include "usage.h"
 # include "minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
-
 
 # define TILE_WALL       '1'
 # define TILE_EMPTY      '0'
@@ -34,39 +34,44 @@
 # define ERR_TOKEN   0x08
 # define ERR_EXTRA   0x10
 # define ERR_INITIAL 0x20
-
+# define ERR_UNREACH_COLLECT 0x40
+# define ERR_UNREACH_EXIT    0x80
 
 # define WIDTH	400
 # define HEIGHT 400
 
-typedef struct	s_img {
+typedef struct s_img
+{
 	void	*img;
-	char	*pixels_ptr;
+	char	*pxls_ptr;
 	int		bpp;
 	int		line_len;
 	int		endian;
 }				t_img;
 
-typedef	struct	s_var
+typedef struct s_var
 {
 	void	*mlx;
 	void	*win;
 	t_img	img;
 }				t_var;
 
-typedef	struct	s_token
+typedef struct s_token
 {
 	int	e_counter;
 	int	p_counter;
 	int	c_counter;
 }				t_token;
 
-typedef	struct s_map
+typedef struct s_map
 {
 	t_list	*lines;
 	char	**matrix;
 	int		rows;
 	int		cols;
+	int		err;
+	int		p_x;
+	int		p_y;
 }				t_map;
 
 //mlx utils
@@ -77,36 +82,25 @@ int		render_window(t_var *vars);
 
 //args_parser
 void	check_input(int argc, char **argv);
-int		check_ber(char *arg);
-int		check_path(char *path);
-void	print_usage();
 
 //map_parser
-t_list	*read_map(const char *path);
+void	read_map(const char *path, t_map *map);
 
 //map validation
 int		validate_map(t_map *map);
 
 //error_handler
-int		map_error();
-void	print_validation_errors(int err);
+int		map_error(t_map *map);
 
 //map_checker
-int		check_line_errors(char *row,t_map *map, t_token *token);
+void	update_token_counts(t_token *token, char *line);
+int		valid_chars(t_map map, char *line, int row);
 
 //map_utils
 int		row_len(char *line);
-int		no_extra_lines(t_list *map_lines);
-
-//map_walls_checker
-int		valid_walls(t_map **map);
-// int	has_only_wall_chars(char *line);
+void	free_map(t_map *map);
 
 //map_to_matrix.c
-char	**map_lines_to_matrix(t_map *map);
-
-void	free_map(t_map *map);
-void	free_map_matrix(t_map *map);
-void	free_map_lines(t_map *map);
+void	map_lines_to_matrix(t_map *map);
 
 #endif
