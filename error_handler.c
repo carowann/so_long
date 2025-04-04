@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:44:23 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/03 15:33:55 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:30:59 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ static void	print_validation_errors(int err)
 		ft_putstr_fd("Exit is unreachable\n", 2);
 }
 
-int	map_error(t_map	*map)
+int	map_error(t_map	*map, int cause)
 {
-	if (map->err > 0)
-		print_validation_errors(map->err);
-	else
+	if (cause == MALLOC_ERROR)
 		ft_putstr_fd("Error\nError while reading map", 2);
+	else if (cause == MAP_ERROR)
+		print_validation_errors(map->err);
 	free_map(map);
 	exit(EXIT_FAILURE);
 }

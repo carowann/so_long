@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:49:30 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/03 15:00:12 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:48:47 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ int	row_len(char *line)
 	return (len);
 }
 
-static void	free_map_matrix(t_map *map)
+void	free_map_matrix(char **matrix, int rows)
 {
 	int	i;
 
 	i = 0;
-	while (i < map->rows)
+	while (i < rows)
 	{
-		free(map->matrix[i]);
+		free(matrix[i]);
 		i++;
 	}
-	free(map->matrix);
-	map->matrix = NULL;
+	free(matrix);
+	matrix = NULL;
 }
 
 static void	free_map_lines(t_map *map)
@@ -62,5 +62,7 @@ static void	free_map_lines(t_map *map)
 void	free_map(t_map *map)
 {
 	free_map_lines(map);
-	free_map_matrix(map);
+	free_map_matrix(map->matrix, map->rows);
+	free_map_matrix(map->matrix_copy, map->rows);
+	map = NULL;
 }

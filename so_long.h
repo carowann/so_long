@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:27:09 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/03 17:31:01 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:31:23 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
+
+# define MALLOC_ERROR	0
+# define MAP_ERROR		1
 
 # define TILE_WALL       '1'
 # define TILE_EMPTY      '0'
@@ -67,6 +70,7 @@ typedef struct s_map
 {
 	t_list	*lines;
 	char	**matrix;
+	char	**matrix_copy;
 	int		rows;
 	int		cols;
 	int		err;
@@ -90,17 +94,21 @@ void	read_map(const char *path, t_map *map);
 int		validate_map(t_map *map);
 
 //error_handler
-int		map_error(t_map *map);
+int		map_error(t_map *map, int cause);
 
 //map_checker
 void	update_token_counts(t_token *token, char *line);
-int		valid_chars(t_map map, char *line, int row);
+int		valid_chars(t_map *map, char *line, int row);
 
 //map_utils
 int		row_len(char *line);
 void	free_map(t_map *map);
+void	free_map_matrix(char **matrix, int rows);
 
 //map_to_matrix.c
 void	map_lines_to_matrix(t_map *map);
+
+//path_validation
+void	validate_paths(t_map *map);
 
 #endif
