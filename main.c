@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:26:54 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/04 18:23:24 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:43:24 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,21 @@
 
 int	main(int argc, char **argv)
 {
-	// t_var	vars;
-	t_map	map;
+	t_game	game;
 
-	map = (t_map){0};
+	game.map = (t_map){0};
 	check_input(argc, argv);
-	read_map(argv[1], &map);
-	if (!map.lines)
-		map_error(&map, MALLOC_ERROR);
-	map_lines_to_matrix(&map);
-	if (!map.matrix)
-		map_error(&map, MALLOC_ERROR);
-	validate_map(&map);
-	if (!map.matrix_copy)
-		map_error(&map, MALLOC_ERROR);
-	if (map.err > 0)
-		map_error(&map, MAP_ERROR);
-	// render_window(&vars);
-	free_map(&map);
+	read_map(argv[1], &game.map);
+	if (!game.map.lines)
+		map_error(&game.map, MALLOC_ERROR);
+	map_lines_to_matrix(&game.map);
+	if (!game.map.matrix)
+		map_error(&game.map, MALLOC_ERROR);
+	validate_map(&game.map);
+	if (!game.map.matrix_copy)
+		map_error(&game.map, MALLOC_ERROR);
+	if (game.map.err > 0)
+		map_error(&game.map, MAP_ERROR);
+	render_window(&game);
 	return (0);
 }

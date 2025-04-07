@@ -6,7 +6,7 @@
 #    By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 14:25:47 by cwannhed          #+#    #+#              #
-#    Updated: 2025/04/04 12:50:27 by cwannhed         ###   ########.fr        #
+#    Updated: 2025/04/07 18:21:39 by cwannhed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ OBJ_DIR = objs
 
 
 SRCS =	main.c					\
-		mlx_utils.c 			\
 		args_parser.c			\
 		map_parser.c			\
 		map_validation.c		\
@@ -37,6 +36,11 @@ SRCS =	main.c					\
 		map_to_matrix.c 		\
 		error_handler.c			\
 		map_path_validation.c	\
+		map_render.c			\
+		mlx_events.c			\
+		mlx_textures.c			\
+		mlx_utils.c				\
+		mlx_window.c			
 
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 17:06:05 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/02/15 17:33:15 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/07 08:51:15 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isupper(int c)
 {
-	if (c >= 'A' & c <= 'Z')
+	if (c >= 'A' && c <= 'Z')
 		return (1);
 	return (0);
 }

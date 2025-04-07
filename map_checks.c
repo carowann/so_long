@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:46:56 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/03 17:31:50 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:38:31 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	valid_map_char(t_map *map, char c, int row, int col)
 		map->p_x = col;
 		map->p_y = row;
 	}
-	return (c == TILE_EMPTY || c == TILE_WALL || c == TILE_COLLECT
+	return (c == TILE_FLOOR || c == TILE_WALL || c == TILE_COLLECT
 		|| c == TILE_PLAYER || c == TILE_EXIT || c == '\0');
 }
 

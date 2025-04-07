@@ -6,7 +6,7 @@
 /*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:27:09 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/04 18:31:23 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/07 18:20:03 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define MAP_ERROR		1
 
 # define TILE_WALL       '1'
-# define TILE_EMPTY      '0'
+# define TILE_FLOOR      '0'
 # define TILE_PLAYER     'P'
 # define TILE_EXIT       'E'
 # define TILE_COLLECT    'C'
@@ -43,6 +43,8 @@
 # define WIDTH	400
 # define HEIGHT 400
 
+#define TILE_SIZE 64
+
 typedef struct s_img
 {
 	void	*img;
@@ -57,6 +59,8 @@ typedef struct s_var
 	void	*mlx;
 	void	*win;
 	t_img	img;
+	int		wind_width;
+	int		wind_height;
 }				t_var;
 
 typedef struct s_token
@@ -78,11 +82,21 @@ typedef struct s_map
 	int		p_y;
 }				t_map;
 
-//mlx utils
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		handle_key_input(int keysym, t_var	*data);
-int		close_win(t_var *data);
-int		render_window(t_var *vars);
+typedef struct s_textures
+{
+	void	*wall;
+	void	*floor;
+	void	*player;
+	void	*exit;
+	void	*collect;
+}				t_textures;
+
+typedef struct s_game
+{
+	t_map		map;
+	t_var		vars;
+	t_textures	tex;
+}				t_game;
 
 //args_parser
 void	check_input(int argc, char **argv);
@@ -95,6 +109,7 @@ int		validate_map(t_map *map);
 
 //error_handler
 int		map_error(t_map *map, int cause);
+void	free_textures(t_var *var, t_textures *tex);
 
 //map_checker
 void	update_token_counts(t_token *token, char *line);
@@ -110,5 +125,23 @@ void	map_lines_to_matrix(t_map *map);
 
 //path_validation
 void	validate_paths(t_map *map);
+
+//map_render.c
+void	render_map_tex(t_map *map, t_var *vars, t_textures *tex);
+
+//mlx_textures.c
+void	load_textures(t_var *vars, t_textures *tex);
+void	load_textures(t_var *vars, t_textures *tex);
+
+//mlx_events.c
+int		handle_key_input(int keysym, t_game *game);
+
+//mlx_utils.c
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+//mlx_window,c
+int		close_win(t_game *g);
+void	render_window(t_game *game);
+
 
 #endif
