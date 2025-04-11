@@ -16,5 +16,14 @@ int	handle_key_input(int keysym, t_game	*game)
 {
 	if (keysym == XK_Escape)
 		close_win(game);
+	else if (keysym == XK_Up || keysym == XK_w)
+		move_player(game, &game->map, 0, -1);
+	else if (keysym == XK_Left || keysym == XK_a)
+		move_player(game, &game->map, -1, 0);
+	else if (keysym == XK_Down || keysym == XK_s)
+		move_player(game, &game->map, 0, 1);
+	else if (keysym == XK_Right || keysym == XK_d)
+		move_player(game, &game->map, 1, 0);
 	return (0);
 }
+              

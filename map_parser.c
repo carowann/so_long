@@ -31,6 +31,7 @@ static void	handle_error(t_map *map, int fd, char *error_msg)
 	if (map->lines)
 		ft_lstclear(&map->lines, free);
 	ft_putstr_fd(error_msg, 2);
+	write(2, "\n", 1);
 	return ;
 }
 

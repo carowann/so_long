@@ -16,8 +16,8 @@ static int	valid_map_char(t_map *map, char c, int row, int col)
 {
 	if (c == TILE_PLAYER)
 	{
-		map->p_x = col;
-		map->p_y = row;
+		map->player.x = col;
+		map->player.y = row;
 	}
 	return (c == TILE_FLOOR || c == TILE_WALL || c == TILE_COLLECT
 		|| c == TILE_PLAYER || c == TILE_EXIT || c == '\0');

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:27:09 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/07 18:20:03 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:15:38 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@
 # define MALLOC_ERROR	0
 # define MAP_ERROR		1
 
-# define TILE_WALL       '1'
-# define TILE_FLOOR      '0'
-# define TILE_PLAYER     'P'
-# define TILE_EXIT       'E'
-# define TILE_COLLECT    'C'
+# define TILE_WALL		'1'
+# define TILE_FLOOR		'0'
+# define TILE_PLAYER	'P'
+# define TILE_EXIT		'E'
+# define TILE_COLLECT	'C'
+# define TILE_P_ON_EXIT	'B'
 
 # define ERR_RECT    0x01
 # define ERR_WALLS   0x02
@@ -70,16 +71,22 @@ typedef struct s_token
 	int	c_counter;
 }				t_token;
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int moves;
+}				t_player;
+
 typedef struct s_map
 {
-	t_list	*lines;
-	char	**matrix;
-	char	**matrix_copy;
-	int		rows;
-	int		cols;
-	int		err;
-	int		p_x;
-	int		p_y;
+	t_list		*lines;
+	char		**matrix;
+	char		**matrix_copy;
+	int			rows;
+	int			cols;
+	int			err;
+	t_player	player;
 }				t_map;
 
 typedef struct s_textures
@@ -89,6 +96,7 @@ typedef struct s_textures
 	void	*player;
 	void	*exit;
 	void	*collect;
+	void	*p_on_exit;
 }				t_textures;
 
 typedef struct s_game
@@ -96,6 +104,7 @@ typedef struct s_game
 	t_map		map;
 	t_var		vars;
 	t_textures	tex;
+	t_token		token;
 }				t_game;
 
 //args_parser
@@ -105,7 +114,7 @@ void	check_input(int argc, char **argv);
 void	read_map(const char *path, t_map *map);
 
 //map validation
-int		validate_map(t_map *map);
+int		validate_map(t_game *game, t_map *map);
 
 //error_handler
 int		map_error(t_map *map, int cause);
@@ -142,6 +151,9 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 //mlx_window,c
 int		close_win(t_game *g);
 void	render_window(t_game *game);
+
+//player_movements
+void	move_player(t_game *game, t_map *map, int x, int y);
 
 
 #endif

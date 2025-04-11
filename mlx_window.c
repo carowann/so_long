@@ -65,7 +65,8 @@ void	render_window(t_game *game)
 	init_window(game);
 	init_image(game);
 	render_map_tex(&game->map, &game->vars, &game->tex);
+	mlx_hook(game->vars.win, KeyPress, KeyPressMask, handle_key_input, game);
 	mlx_hook(game->vars.win, DestroyNotify, SubstructureNotifyMask, close_win, game);
-	mlx_key_hook(game->vars.win, handle_key_input, game);
+	//mlx_key_hook(game->vars.win, handle_key_input, game);
 	mlx_loop(game->vars.mlx);
 }

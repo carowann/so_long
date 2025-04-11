@@ -40,7 +40,8 @@ SRCS =	main.c					\
 		mlx_events.c			\
 		mlx_textures.c			\
 		mlx_utils.c				\
-		mlx_window.c			
+		mlx_window.c			\
+		player_movements.c
 
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

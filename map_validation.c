@@ -36,27 +36,26 @@ static int	valid_walls(t_map *map)
 	return (1);
 }
 
-int	validate_map(t_map *map)
+int	validate_map(t_game *game, t_map *map)
 {
-	t_token	token;
 	int		i;
 
 	if (!map)
 		return (ERR_RECT | ERR_WALLS | ERR_INVALID | ERR_TOKEN);
-	token = (t_token){0};
-	i = 0;
+	game->token = (t_token){0};
 	if (!valid_walls(map))
 		map->err |= ERR_WALLS;
+	i = 0;
 	while (i < map->rows)
 	{
 		if (row_len(map->matrix[i]) != map->cols)
 			map->err |= ERR_RECT;
 		if (!valid_chars(map, map->matrix[i], i))
 			map->err |= ERR_INVALID;
-		update_token_counts(&token, map->matrix[i]);
+		update_token_counts(&game->token, map->matrix[i]);
 		i++;
 	}
-	if (token.c_counter < 1 || token.e_counter != 1 || token.p_counter != 1)
+	if (game->token.c_counter < 1 || game->token.e_counter != 1 || game->token.p_counter != 1)
 		map->err |= ERR_TOKEN;
 	validate_paths(map);
 	return (map->err);

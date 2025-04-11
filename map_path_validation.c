@@ -29,31 +29,28 @@ static void	flood_fill(char **matrix, int rows, int cols, int x, int y, char tar
 
 static int	tile_target_left(t_map *map, char **matrix, char tile)
 {
-	int	i;
-	int j;
+	int	y;
+	int x;
 
-	i = 0;
-	while (i < map->rows)
+	y = 0;
+	while (y < map->rows)
 	{
-		j = 0;
-		while (j < map->cols)
+		x = 0;
+		while (x < map->cols)
 		{
-			if (matrix[i][j] == tile)
+			if (matrix[y][x] == tile)
 				return (1);
-			j++;
+			x++;
 		}
-		i++;
+		y++;
 	}
 	return (0);
 }
 
 static int	path_to_collectibles(t_map *map, char **matrix)
 {
-	int	i;
-
-	i = 0;
-	flood_fill(matrix, map->rows, map->cols, map->p_x, map->p_y, TILE_FLOOR, 'F');
-	flood_fill(matrix, map->rows, map->cols, map->p_x, map->p_y, TILE_COLLECT, 'F');
+	flood_fill(matrix, map->rows, map->cols, map->player.x, map->player.y, TILE_FLOOR, 'F');
+	flood_fill(matrix, map->rows, map->cols, map->player.x, map->player.y, TILE_COLLECT, 'F');
 	if (tile_target_left(map, matrix, TILE_COLLECT))
 		return (0);
 	return (1);
@@ -61,8 +58,8 @@ static int	path_to_collectibles(t_map *map, char **matrix)
 
 static int	path_to_exit(t_map *map, char **matrix)
 {
-	flood_fill(matrix, map->rows, map->cols, map->p_x, map->p_y, TILE_FLOOR, 'F');
-	flood_fill(matrix, map->rows, map->cols, map->p_x, map->p_y, TILE_EXIT, 'F');
+	flood_fill(matrix, map->rows, map->cols, map->player.x, map->player.y, TILE_FLOOR, 'F');
+	flood_fill(matrix, map->rows, map->cols, map->player.x, map->player.y, TILE_EXIT, 'F');
 	if (tile_target_left(map, matrix, TILE_EXIT))
 		return (0);
 	return (1);
@@ -95,8 +92,6 @@ char	**copy_matrix(t_map *map)
 
 void	validate_paths(t_map *map)
 {
-	int		i = 0;
-
 	map->matrix_copy = copy_matrix(map);
 	if (!map->matrix_copy)
 		return ;
@@ -106,7 +101,6 @@ void	validate_paths(t_map *map)
 	map->matrix_copy = copy_matrix(map);
 	if (!map->matrix_copy)
 		return ;
-	i = 0;
 	if (!path_to_exit(map, map->matrix_copy))
 		map->err |= ERR_UNREACH_EXIT;
 }

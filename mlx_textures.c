@@ -22,6 +22,7 @@ void	load_textures(t_var *vars, t_textures *tex)
 	tex->player = mlx_xpm_file_to_image(vars->mlx, "textures/player.xpm", &size, &size);
 	tex->exit = mlx_xpm_file_to_image(vars->mlx, "textures/exit.xpm", &size, &size);
 	tex->collect = mlx_xpm_file_to_image(vars->mlx, "textures/collect.xpm", &size, &size);
+	tex->p_on_exit = mlx_xpm_file_to_image(vars->mlx, "textures/player_exit.xpm", &size, &size);
 	if (!tex->wall || !tex->floor || !tex->player || !tex->exit || !tex->collect)
 	{
 		ft_putstr_fd("Error loading textures\n", 2);
@@ -41,4 +42,6 @@ void free_textures(t_var *var, t_textures *tex)
 		mlx_destroy_image(var->mlx, tex->exit);
 	if (tex->collect)
 		mlx_destroy_image(var->mlx, tex->collect);
+	if (tex->p_on_exit)
+		mlx_destroy_image(var->mlx, tex->p_on_exit);
 }

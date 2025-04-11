@@ -36,7 +36,7 @@ static void	print_validation_errors(int err)
 int	map_error(t_map	*map, int cause)
 {
 	if (cause == MALLOC_ERROR)
-		ft_putstr_fd("Error\nError while reading map", 2);
+		ft_putstr_fd("Error while reading map\n", 2);
 	else if (cause == MAP_ERROR)
 		print_validation_errors(map->err);
 	free_map(map);

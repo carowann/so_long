@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:23:32 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/07 18:12:53 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:44:03 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	render_map_tex(t_map *map, t_var *vars, t_textures *tex)
 				mlx_put_image_to_window(vars->mlx, vars->win, tex->player, j * TILE_SIZE, i * TILE_SIZE);
 			else if (tile == TILE_WALL)
 				mlx_put_image_to_window(vars->mlx, vars->win, tex->wall, j * TILE_SIZE, i * TILE_SIZE);
+			else if (tile == TILE_P_ON_EXIT)
+				mlx_put_image_to_window(vars->mlx, vars->win, tex->p_on_exit, j * TILE_SIZE, i * TILE_SIZE);
 			j++;
 		}
 		i++;

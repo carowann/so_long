@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	map_lines_to_matrix(&game.map);
 	if (!game.map.matrix)
 		map_error(&game.map, MALLOC_ERROR);
-	validate_map(&game.map);
+	validate_map(&game, &game.map);
 	if (!game.map.matrix_copy)
 		map_error(&game.map, MALLOC_ERROR);
 	if (game.map.err > 0)
