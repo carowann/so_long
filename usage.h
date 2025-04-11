@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   usage.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:27:45 by cwannhed          #+#    #+#             */
 /*   Updated: 2025/04/03 15:12:23 by cwannhed         ###   ########.fr       */

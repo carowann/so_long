@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:09:44 by cwannhed          #+#    #+#             */
 /*   Updated: 2025/04/07 18:19:49 by cwannhed         ###   ########.fr       */
@@ -67,6 +67,5 @@ void	render_window(t_game *game)
 	render_map_tex(&game->map, &game->vars, &game->tex);
 	mlx_hook(game->vars.win, KeyPress, KeyPressMask, handle_key_input, game);
 	mlx_hook(game->vars.win, DestroyNotify, SubstructureNotifyMask, close_win, game);
-	//mlx_key_hook(game->vars.win, handle_key_input, game);
 	mlx_loop(game->vars.mlx);
 }

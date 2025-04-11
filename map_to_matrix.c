@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   map_to_matrix.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:47:01 by cwannhed          #+#    #+#             */
 /*   Updated: 2025/04/04 18:47:25 by cwannhed         ###   ########.fr       */

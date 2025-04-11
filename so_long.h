@@ -117,6 +117,7 @@ void	read_map(const char *path, t_map *map);
 int		validate_map(t_game *game, t_map *map);
 
 //error_handler
+void	cleanup_and_exit(t_game *game, int exit_code);
 int		map_error(t_map *map, int cause);
 void	free_textures(t_var *var, t_textures *tex);
 
@@ -136,6 +137,7 @@ void	map_lines_to_matrix(t_map *map);
 void	validate_paths(t_map *map);
 
 //map_render.c
+void	render_tile(t_map *map, t_var *vars, t_textures *tex, int row, int col);
 void	render_map_tex(t_map *map, t_var *vars, t_textures *tex);
 
 //mlx_textures.c
@@ -149,7 +151,6 @@ int		handle_key_input(int keysym, t_game *game);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 //mlx_window,c
-int		close_win(t_game *g);
 void	render_window(t_game *game);
 
 //player_movements

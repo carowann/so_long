@@ -12,9 +12,31 @@
 
 #include "so_long.h"
 
-void	render_map_tex(t_map *map, t_var *vars, t_textures *tex)
+void	render_tile(t_map *map, t_var *vars, t_textures *tex, int row, int col)
 {
 	char	tile;
+	int		x;
+	int		y;
+
+	tile = map->matrix[row][col];
+	x = col * TILE_SIZE;
+	y = row * TILE_SIZE;
+	if (tile == TILE_COLLECT)
+		mlx_put_image_to_window(vars->mlx, vars->win, tex->collect, x, y);
+	else if (tile == TILE_FLOOR)
+		mlx_put_image_to_window(vars->mlx, vars->win, tex->floor, x, y);
+	else if (tile == TILE_EXIT)
+		mlx_put_image_to_window(vars->mlx, vars->win, tex->exit, x, y);
+	else if (tile == TILE_PLAYER)
+		mlx_put_image_to_window(vars->mlx, vars->win, tex->player, x, y);
+	else if (tile == TILE_WALL)
+		mlx_put_image_to_window(vars->mlx, vars->win, tex->wall, x, y);
+	else if (tile == TILE_P_ON_EXIT)
+		mlx_put_image_to_window(vars->mlx, vars->win, tex->p_on_exit, x, y);
+}
+
+void	render_map_tex(t_map *map, t_var *vars, t_textures *tex)
+{
 	int		i;
 	int		j;
 
@@ -24,19 +46,7 @@ void	render_map_tex(t_map *map, t_var *vars, t_textures *tex)
 		j = 0;
 		while (j < map->cols)
 		{
-			tile = map->matrix[i][j];
-			if (tile == TILE_COLLECT)
-				mlx_put_image_to_window(vars->mlx, vars->win, tex->collect, j * TILE_SIZE, i * TILE_SIZE);
-			else if (tile == TILE_FLOOR)
-				mlx_put_image_to_window(vars->mlx, vars->win, tex->floor, j * TILE_SIZE, i * TILE_SIZE);
-			else if (tile == TILE_EXIT)
-				mlx_put_image_to_window(vars->mlx, vars->win, tex->exit, j * TILE_SIZE, i * TILE_SIZE);
-			else if (tile == TILE_PLAYER)
-				mlx_put_image_to_window(vars->mlx, vars->win, tex->player, j * TILE_SIZE, i * TILE_SIZE);
-			else if (tile == TILE_WALL)
-				mlx_put_image_to_window(vars->mlx, vars->win, tex->wall, j * TILE_SIZE, i * TILE_SIZE);
-			else if (tile == TILE_P_ON_EXIT)
-				mlx_put_image_to_window(vars->mlx, vars->win, tex->p_on_exit, j * TILE_SIZE, i * TILE_SIZE);
+			render_tile(map, vars, tex, i, j);
 			j++;
 		}
 		i++;

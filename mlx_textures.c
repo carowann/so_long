@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:44:23 by cwannhed          #+#    #+#             */
 /*   Updated: 2025/04/07 18:14:13 by cwannhed         ###   ########.fr       */

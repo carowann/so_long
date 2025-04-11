@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:44:23 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/07 18:05:17 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:47:02 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	cleanup_and_exit(t_game *game, int exit_code)
+{
+	free_textures(&game->vars, &game->tex);
+	if (game->vars.img.img)
+		mlx_destroy_image(game->vars.mlx, game->vars.img.img);
+	if (game->vars.win)
+		mlx_destroy_window(game->vars.mlx, game->vars.win);
+	if (game->vars.mlx)
+	{
+		mlx_destroy_display(game->vars.mlx);
+		free(game->vars.mlx);
+	}
+	free_map(&game->map);
+	exit(exit_code);
+}
 
 static void	print_validation_errors(int err)
 {

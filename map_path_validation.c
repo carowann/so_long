@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   map_path_validation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwannhed <cwannhed@student.42firenze.it    +#+  +:+       +#+        */
+/*   By: cwannhed <cwannhed@student.42firenze.it>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 15:20:49 by cwannhed          #+#    #+#             */
-/*   Updated: 2025/04/07 18:27:18 by cwannhed         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:46:25 by cwannhed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	flood_fill(char **matrix, int rows, int cols, int x, int y, char target, char replacement)
+void	flood_fill(char **mtrx, int rows, int cols, int x, int y, char tgt, char repl)
 {
 	if (x < 0 || x >= cols || y < 0 || y >= rows)
 		return ;
-	if (matrix[y][x] == TILE_WALL)
+	if (mtrx[y][x] == TILE_WALL)
 		return ;
-	if (matrix[y][x] == replacement)
+	if (mtrx[y][x] == repl)
 		return ;
-	matrix[y][x] = replacement;
-	flood_fill(matrix, rows, cols, x + 1, y, target, replacement);
-	flood_fill(matrix, rows, cols, x - 1, y, target, replacement);
-	flood_fill(matrix, rows, cols, x, y + 1, target, replacement);
-	flood_fill(matrix, rows, cols, x, y - 1, target, replacement);
+	mtrx[y][x] = repl;
+	flood_fill(mtrx, rows, cols, x + 1, y, tgt, repl);
+	flood_fill(mtrx, rows, cols, x - 1, y, tgt, repl);
+	flood_fill(mtrx, rows, cols, x, y + 1, tgt, repl);
+	flood_fill(mtrx, rows, cols, x, y - 1, tgt, repl);
 }
 
 static int	tile_target_left(t_map *map, char **matrix, char tile)
