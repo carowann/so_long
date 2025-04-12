@@ -55,7 +55,9 @@ int	validate_map(t_game *game, t_map *map)
 		update_token_counts(&game->token, map->matrix[i]);
 		i++;
 	}
-	if (game->token.c_counter < 1 || game->token.e_counter != 1 || game->token.p_counter != 1)
+	if (game->token.c_counter < 1
+		|| game->token.e_counter != 1
+		|| game->token.p_counter != 1)
 		map->err |= ERR_TOKEN;
 	validate_paths(map);
 	return (map->err);

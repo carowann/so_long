@@ -49,12 +49,9 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
 
 $(LIBFT):
-	@echo "Compiling libft..."
 	@$(MAKE) -C $(LIBFT_DIR) --no-print-directory
-	@echo "Libft compiled successfully!"
-	
+
 $(NAME): $(OBJ_DIR) $(OBJS) $(LIBFT)
-	@echo "Linking $(NAME)..."
 	@$(CC) $(CFLAGS) $(OBJS) -I$(INC_DIR) -L$(LIBFT_DIR) -lft $(MLX_LIBS) -o $(NAME)
 	@echo "$(NAME) created successfully!"
 
@@ -62,20 +59,17 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	@echo "Compiling $<..."
 	@$(CC) $(CFLAGS) -c -I$(INC_DIR) $< -o $@
 
 clean:
-	@echo "Cleaning object files..."
 	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory
-	@echo "Object files cleaned!"
+	@echo "So_long object files cleaned!"
 
 fclean: clean
-	@echo "Removing library $(NAME)..."
 	@$(RM) $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean --no-print-directory
-	@echo "Library $(NAME) removed!"
+	@echo "$(NAME) removed!"
 
 re: fclean all
 

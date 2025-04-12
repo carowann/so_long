@@ -12,25 +12,25 @@
 
 #include "so_long.h"
 
-void	flood_fill(char **mtrx, int rows, int cols, int x, int y, char tgt, char repl)
+void	flood_fill(t_map *map, int x, int y, char full)
 {
-	if (x < 0 || x >= cols || y < 0 || y >= rows)
+	if (x < 0 || x >= map->cols || y < 0 || y >= map->rows)
 		return ;
-	if (mtrx[y][x] == TILE_WALL)
+	if (map->matrix_copy[y][x] == TILE_WALL)
 		return ;
-	if (mtrx[y][x] == repl)
+	if (map->matrix_copy[y][x] == full)
 		return ;
-	mtrx[y][x] = repl;
-	flood_fill(mtrx, rows, cols, x + 1, y, tgt, repl);
-	flood_fill(mtrx, rows, cols, x - 1, y, tgt, repl);
-	flood_fill(mtrx, rows, cols, x, y + 1, tgt, repl);
-	flood_fill(mtrx, rows, cols, x, y - 1, tgt, repl);
+	map->matrix_copy[y][x] = full;
+	flood_fill(map, x + 1, y, full);
+	flood_fill(map, x - 1, y, full);
+	flood_fill(map, x, y + 1, full);
+	flood_fill(map, x, y - 1, full);
 }
 
 static int	tile_target_left(t_map *map, char **matrix, char tile)
 {
 	int	y;
-	int x;
+	int	x;
 
 	y = 0;
 	while (y < map->rows)
@@ -47,20 +47,10 @@ static int	tile_target_left(t_map *map, char **matrix, char tile)
 	return (0);
 }
 
-static int	path_to_collectibles(t_map *map, char **matrix)
+static int	path_to_target_tile(t_map *map, char **matrix, char tile)
 {
-	flood_fill(matrix, map->rows, map->cols, map->player.x, map->player.y, TILE_FLOOR, 'F');
-	flood_fill(matrix, map->rows, map->cols, map->player.x, map->player.y, TILE_COLLECT, 'F');
-	if (tile_target_left(map, matrix, TILE_COLLECT))
-		return (0);
-	return (1);
-}
-
-static int	path_to_exit(t_map *map, char **matrix)
-{
-	flood_fill(matrix, map->rows, map->cols, map->player.x, map->player.y, TILE_FLOOR, 'F');
-	flood_fill(matrix, map->rows, map->cols, map->player.x, map->player.y, TILE_EXIT, 'F');
-	if (tile_target_left(map, matrix, TILE_EXIT))
+	flood_fill(map, map->player.x, map->player.y, 'F');
+	if (tile_target_left(map, matrix, tile))
 		return (0);
 	return (1);
 }
@@ -69,7 +59,7 @@ char	**copy_matrix(t_map *map)
 {
 	char	**copy;
 	int		i;
-	
+
 	copy = ft_calloc(map->rows, sizeof(char *));
 	if (!copy)
 		return (NULL);
@@ -95,12 +85,12 @@ void	validate_paths(t_map *map)
 	map->matrix_copy = copy_matrix(map);
 	if (!map->matrix_copy)
 		return ;
-	if (!path_to_collectibles(map, map->matrix_copy))
+	if (!path_to_target_tile(map, map->matrix_copy, TILE_COLLECT))
 		map->err |= ERR_UNREACH_COLLECT;
 	free_map_matrix(map->matrix_copy, map->rows);
 	map->matrix_copy = copy_matrix(map);
 	if (!map->matrix_copy)
 		return ;
-	if (!path_to_exit(map, map->matrix_copy))
+	if (!path_to_target_tile(map, map->matrix_copy, TILE_EXIT))
 		map->err |= ERR_UNREACH_EXIT;
 }

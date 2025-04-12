@@ -12,42 +12,42 @@
 
 #include "so_long.h"
 
-static void	update_tile(t_game *game, int new_tile, int prev_tile, int new_x, int new_y)
+static void	update_tile(t_token *token, t_map *map, int new_tile, int prev_tile)
 {
-	if (game->map.matrix[new_y][new_x] == TILE_COLLECT)
-		game->token.c_counter--;
-	game->map.matrix[game->map.player.y][game->map.player.x] = prev_tile;
-	game->map.matrix[new_y][new_x] = new_tile;
-	game->map.player.y = new_y;
-	game->map.player.x = new_x;
-	game->map.player.moves++;
-	ft_printf("Movement counter: %d\n", game->map.player.moves);
+	if (map->matrix[map->player.dest_y][map->player.dest_x] == TILE_COLLECT)
+		token->c_counter--;
+	map->matrix[map->player.y][map->player.x] = prev_tile;
+	map->matrix[map->player.dest_y][map->player.dest_x] = new_tile;
+	map->player.y = map->player.dest_y;
+	map->player.x = map->player.dest_x;
+	ft_printf("Movement counter: %d\n", ++map->player.moves);
 }
 
 void	move_player(t_game *game, t_map *map, int x, int y)
 {
 	int	old_x;
-	int old_y;
-	int	new_x;
-	int new_y;
+	int	old_y;
 
 	old_x = map->player.x;
 	old_y = map->player.y;
-	new_x = map->player.x + x;
-	new_y = map->player.y + y;
-	if (new_x < 0 || new_y < 0 || new_x >= map->cols || new_y >= map->rows || map->matrix[new_y][new_x] == TILE_WALL)
+	map->player.dest_x = map->player.x + x;
+	map->player.dest_y = map->player.y + y;
+	if (map->player.dest_x < 0 || map->player.dest_y < 0
+		|| map->player.dest_x >= map->cols || map->player.dest_y >= map->rows
+		|| map->matrix[map->player.dest_y][map->player.dest_x] == TILE_WALL)
 		return ;
-	if (map->matrix[new_y][new_x] == TILE_EXIT && game->token.c_counter == 0)
+	if (map->matrix[map->player.dest_y][map->player.dest_x] == TILE_EXIT
+		&& game->token.c_counter == 0)
 	{
 		ft_printf("You won in %d moves!\n", map->player.moves + 1);
 		cleanup_and_exit(game, EXIT_SUCCESS);
 	}
 	else if (map->matrix[old_y][old_x] == TILE_P_ON_EXIT)
-		update_tile(game, TILE_PLAYER, TILE_EXIT, new_x, new_y);
-	else if (map->matrix[new_y][new_x] == TILE_EXIT)
-		update_tile(game, TILE_P_ON_EXIT, TILE_FLOOR, new_x, new_y);
+		update_tile(&game->token, map, TILE_PLAYER, TILE_EXIT);
+	else if (map->matrix[map->player.dest_y][map->player.dest_x] == TILE_EXIT)
+		update_tile(&game->token, map, TILE_P_ON_EXIT, TILE_FLOOR);
 	else
-		update_tile(game, TILE_PLAYER, TILE_FLOOR, new_x, new_y);
-	render_tile(map, &game->vars, &game->tex, old_y, old_x);
-	render_tile(map, &game->vars, &game->tex, new_y, new_x);
+		update_tile(&game->token, map, TILE_PLAYER, TILE_FLOOR);
+	render_tile(game, old_y, old_x);
+	render_tile(game, map->player.dest_y, map->player.dest_x);
 }

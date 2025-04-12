@@ -12,25 +12,32 @@
 
 #include "so_long.h"
 
-void	load_textures(t_var *vars, t_textures *tex)
+void	load_textures(t_game *game, t_var *env, t_textures *tex)
 {
 	int	size;
 
 	size = TILE_SIZE;
-	tex->wall = mlx_xpm_file_to_image(vars->mlx, "textures/wall.xpm", &size, &size);
-	tex->floor = mlx_xpm_file_to_image(vars->mlx, "textures/floor.xpm", &size, &size);
-	tex->player = mlx_xpm_file_to_image(vars->mlx, "textures/player.xpm", &size, &size);
-	tex->exit = mlx_xpm_file_to_image(vars->mlx, "textures/exit.xpm", &size, &size);
-	tex->collect = mlx_xpm_file_to_image(vars->mlx, "textures/collect.xpm", &size, &size);
-	tex->p_on_exit = mlx_xpm_file_to_image(vars->mlx, "textures/player_exit.xpm", &size, &size);
-	if (!tex->wall || !tex->floor || !tex->player || !tex->exit || !tex->collect)
+	tex->wall = mlx_xpm_file_to_image(
+			env->mlx, "textures/wall.xpm", &size, &size);
+	tex->floor = mlx_xpm_file_to_image(
+			env->mlx, "textures/floor.xpm", &size, &size);
+	tex->player = mlx_xpm_file_to_image(
+			env->mlx, "textures/player.xpm", &size, &size);
+	tex->exit = mlx_xpm_file_to_image(
+			env->mlx, "textures/exit.xpm", &size, &size);
+	tex->collect = mlx_xpm_file_to_image(
+			env->mlx, "textures/collect.xpm", &size, &size);
+	tex->p_on_exit = mlx_xpm_file_to_image(
+			env->mlx, "textures/player_exit.xpm", &size, &size);
+	if (!tex->wall || !tex->floor || !tex->player
+		|| !tex->exit || !tex->collect)
 	{
 		ft_putstr_fd("Error loading textures\n", 2);
-		exit(EXIT_FAILURE);
+		cleanup_and_exit(game, EXIT_FAILURE);
 	}
 }
 
-void free_textures(t_var *var, t_textures *tex)
+void	free_textures(t_var *var, t_textures *tex)
 {
 	if (tex->wall)
 		mlx_destroy_image(var->mlx, tex->wall);

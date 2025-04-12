@@ -12,23 +12,23 @@
 
 #include "so_long.h"
 
-void	cleanup_and_exit(t_game *game, int exit_code)
+int	cleanup_and_exit(t_game *game, int exit_code)
 {
-	free_textures(&game->vars, &game->tex);
-	if (game->vars.img.img)
-		mlx_destroy_image(game->vars.mlx, game->vars.img.img);
-	if (game->vars.win)
-		mlx_destroy_window(game->vars.mlx, game->vars.win);
-	if (game->vars.mlx)
+	free_textures(&game->env, &game->tex);
+	if (game->env.img.img)
+		mlx_destroy_image(game->env.mlx, game->env.img.img);
+	if (game->env.win)
+		mlx_destroy_window(game->env.mlx, game->env.win);
+	if (game->env.mlx)
 	{
-		mlx_destroy_display(game->vars.mlx);
-		free(game->vars.mlx);
+		mlx_destroy_display(game->env.mlx);
+		free(game->env.mlx);
 	}
 	free_map(&game->map);
 	exit(exit_code);
 }
 
-static void	print_validation_errors(int err)
+void	print_validation_errors(int err)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (err & ERR_INITIAL)
@@ -47,6 +47,8 @@ static void	print_validation_errors(int err)
 		ft_putstr_fd("One or more collectibles are unreachable\n", 2);
 	if (err & ERR_UNREACH_EXIT)
 		ft_putstr_fd("Exit is unreachable\n", 2);
+	if (err & ERR_TOO_BIG)
+		ft_putstr_fd("Map too big to render on this screen\n", 2);
 }
 
 int	map_error(t_map	*map, int cause)

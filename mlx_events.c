@@ -26,4 +26,3 @@ int	handle_key_input(int keysym, t_game	*game)
 		move_player(game, &game->map, 1, 0);
 	return (0);
 }
-              

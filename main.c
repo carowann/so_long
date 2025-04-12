@@ -16,6 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	game = (t_game){0};
 	game.map = (t_map){0};
 	check_input(argc, argv);
 	read_map(argv[1], &game.map);
