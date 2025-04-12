@@ -12,6 +12,48 @@
 
 #include "so_long.h"
 
+static int	valid_map_char(t_map *map, char c, int row, int col)
+{
+	if (c == TILE_PLAYER)
+	{
+		map->player.x = col;
+		map->player.y = row;
+	}
+	return (c == TILE_FLOOR || c == TILE_WALL || c == TILE_COLLECT
+		|| c == TILE_PLAYER || c == TILE_EXIT || c == '\0');
+}
+
+static int	valid_chars(t_map *map, char *line, int row)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!valid_map_char(map, line[i], row, i))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static void	update_token_counts(t_token *token, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == TILE_EXIT)
+			token->e_counter++;
+		else if (line[i] == TILE_PLAYER)
+			token->p_counter++;
+		else if (line[i] == TILE_COLLECT)
+			token->c_counter++;
+		i++;
+	}
+}
+
 static int	valid_walls(t_map *map)
 {
 	int	i;

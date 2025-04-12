@@ -31,7 +31,6 @@ SRCS =	main.c					\
 		args_parser.c			\
 		map_parser.c			\
 		map_validation.c		\
-		map_checks.c			\
 		map_utils.c				\
 		map_to_matrix.c 		\
 		error_handler.c			\
@@ -39,7 +38,6 @@ SRCS =	main.c					\
 		map_render.c			\
 		mlx_events.c			\
 		mlx_textures.c			\
-		mlx_utils.c				\
 		mlx_window.c			\
 		player_movements.c
 

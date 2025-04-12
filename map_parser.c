@@ -40,6 +40,7 @@ void	read_map(const char *path, t_map *map)
 	int		fd;
 	char	*line;
 
+	//map = &((t_map){0});
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{

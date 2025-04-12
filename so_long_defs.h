@@ -13,6 +13,8 @@
 #ifndef SO_LONG_DEFS_H
 # define SO_LONG_DEFS_H
 
+# define USAGE_MSG "Usage: ./so_long <maps/map_file.ber>\n"
+
 # define MALLOC_ERROR	0
 # define MAP_ERROR		1
 

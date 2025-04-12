@@ -20,7 +20,6 @@
 
 # include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
-# include "usage.h"
 # include "so_long_defs.h"
 # include "so_long_structs.h"
 
@@ -40,8 +39,6 @@ void	free_textures(t_var *var, t_textures *tex);
 void	print_validation_errors(int err);
 
 //map_checker
-void	update_token_counts(t_token *token, char *line);
-int		valid_chars(t_map *map, char *line, int row);
 
 //map_utils
 int		row_len(char *line);
@@ -64,10 +61,8 @@ void	load_textures(t_game *game, t_var *env, t_textures *tex);
 //mlx_events.c
 int		handle_key_input(int keysym, t_game *game);
 
-//mlx_utils.c
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-
 //mlx_window,c
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	render_window(t_game *game);
 
 //player_movements

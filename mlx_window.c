@@ -12,6 +12,14 @@
 
 #include "so_long.h"
 
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->pxls_ptr + (y * img->line_len + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
 static void	init_mlx(t_game *game)
 {
 	int	screen_width;

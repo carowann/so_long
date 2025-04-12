@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-static int	check_ber(char *arg)
+static int	check_ext_ber(char *arg)
 {
 	int	arg_len;
 	int	ext_idx;
@@ -24,28 +24,9 @@ static int	check_ber(char *arg)
 	return (0);
 }
 
-static int	check_path(char *path)
-{
-	int	fd;
-
-	if (ft_strncmp(path, "maps/", 5) != 0)
-		return (0);
-	fd = open(path, O_RDONLY | __O_DIRECTORY);
-	if (fd >= 0)
-	{
-		if (close(fd) < 0)
-		{
-			ft_putstr_fd("Failed to close file descriptor properly.\n", 2);
-			exit(EXIT_FAILURE);
-		}
-		return (0);
-	}
-	return (1);
-}
-
 void	check_input(int argc, char **argv)
 {
-	if (argc != 2 || !check_ber(argv[1]) || !check_path(argv[1]))
+	if (argc != 2 || !check_ext_ber(argv[1]))
 	{
 		ft_putstr_fd("Error\n", 2);
 		ft_putstr_fd(USAGE_MSG, 2);

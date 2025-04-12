@@ -26,7 +26,7 @@ SRCS = \
 		ft_isascii.c			\
 		ft_isdigit.c			\
 		ft_isprint.c			\
-		ft_isupper				\
+		ft_isupper.c			\
 		ft_strlen.c				\
 		ft_tolower.c			\
 		ft_toupper.c			\
