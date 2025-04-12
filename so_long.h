@@ -27,7 +27,7 @@
 void	check_input(int argc, char **argv);
 
 //map_parser
-void	read_map(const char *path, t_map *map);
+void	read_map(const char *path, t_game *game);
 
 //map validation
 int		validate_map(t_game *game, t_map *map);

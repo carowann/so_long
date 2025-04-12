@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-static	int	add_line(char *line, t_map *map)
+static int	add_line(char *line, t_map *map)
 {
 	t_list	*new_node;
 
@@ -35,30 +35,27 @@ static void	handle_error(t_map *map, int fd, char *error_msg)
 	return ;
 }
 
-void	read_map(const char *path, t_map *map)
+void	read_map(const char *path, t_game *game)
 {
 	int		fd;
 	char	*line;
 
-	//map = &((t_map){0});
+	game->map = (t_map){0};
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-	{
-		handle_error(map, fd, "Unable to open file");
 		return ;
-	}
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (!add_line(line, map))
+		if (!add_line(line, &game->map))
 		{
-			handle_error(map, fd, "Memory allocation failed in add_line");
+			handle_error(&game->map, fd, "Memory allocation failed in add_line");
 			break ;
 		}
 	}
 	if (close(fd) < 0)
-		handle_error(map, -1, "Failed to close the file descriptor");
+		handle_error(&game->map, -1, "Failed to close the file descriptor");
 	return ;
 }

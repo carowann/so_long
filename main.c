@@ -15,11 +15,10 @@
 int	main(int argc, char **argv)
 {
 	t_game	game;
-
+	
 	game = (t_game){0};
-	game.map = (t_map){0};
 	check_input(argc, argv);
-	read_map(argv[1], &game.map);
+	read_map(argv[1], &game);
 	if (!game.map.lines)
 		map_error(&game.map, MALLOC_ERROR);
 	map_lines_to_matrix(&game.map);
