@@ -5,7 +5,7 @@ A simple 2D game built with MiniLibX for 42 School.
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/so_long.git
+git clone https://github.com/carowann/so_long.git
 cd so_long
 make
 ```
